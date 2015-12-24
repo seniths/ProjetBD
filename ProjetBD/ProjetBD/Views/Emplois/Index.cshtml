@@ -1,0 +1,104 @@
+﻿@model IEnumerable<ProjetBD.Emploi>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        @*<th>
+            @Html.DisplayNameFor(model => model.dateEntree)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateSortie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entreprise)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profession)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Travailleur)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Entreprise)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profession)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Travailleur.nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Travailleur.prenom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Travailleur.idTravailleur)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        @*<tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.dateEntree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dateSortie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Entreprise.nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profession.idProfession)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Travailleur.nom)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.idEmploi }) |
+                @Html.ActionLink("Details", "Details", new { id = item.idEmploi }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.idEmploi })
+            </td>
+        </tr>*@
+
+
+        if (item.type)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Entreprise.nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Profession.Lan_Prof.First(lp => lp.idProfession.Equals(item.Profession.idProfession) && lp.idLangue == 1).texte)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Travailleur.prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Travailleur.nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Travailleur.idTravailleur)
+                </td>
+                <td>
+                    @Html.ActionLink("Ajouter des risques", "Create", "Risque_TravSoumis")
+                </td>
+            </tr>
+        }
+    }
+
+</table>

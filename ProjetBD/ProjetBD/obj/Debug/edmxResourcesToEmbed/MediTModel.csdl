@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MeditModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Emploi">
+    <Key>
+      <PropertyRef Name="idEmploi" />
+    </Key>
+    <Property Name="idEmploi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dateEntree" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="idTravailleur" Type="Int32" Nullable="false" />
+    <Property Name="idEntreprise" Type="Int32" Nullable="false" />
+    <Property Name="dateSortie" Type="DateTime" Precision="0" />
+    <Property Name="type" Type="Boolean" Nullable="false" />
+    <Property Name="idProfession" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Entreprise" Relationship="Self.REF_Emplo_Entre_FK" FromRole="Emploi" ToRole="Entreprise" />
+    <NavigationProperty Name="Profession" Relationship="Self.REF_Emplo_Profe_FK" FromRole="Emploi" ToRole="Profession" />
+    <NavigationProperty Name="Travailleur" Relationship="Self.REF_Emplo_Trava_FK" FromRole="Emploi" ToRole="Travailleur" />
+    <NavigationProperty Name="ExamenParticulier" Relationship="Self.REF_Exame_Emplo_FK" FromRole="Emploi" ToRole="ExamenParticulier" />
+    <NavigationProperty Name="Risque_TravSoumis" Relationship="Self.REF_Risqu_Emplo_FK" FromRole="Emploi" ToRole="Risque_TravSoumis" />
+  </EntityType>
+  <EntityType Name="Entreprise">
+    <Key>
+      <PropertyRef Name="idEntreprise" />
+    </Key>
+    <Property Name="idEntreprise" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adr_rue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adr_numero" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="adr_localite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adr_codePostal" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+    <Property Name="numTel" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Emploi" Relationship="Self.REF_Emplo_Entre_FK" FromRole="Entreprise" ToRole="Emploi" />
+  </EntityType>
+  <EntityType Name="Examen">
+    <Key>
+      <PropertyRef Name="idExamen" />
+    </Key>
+    <Property Name="idExamen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="periodicite" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="prixSoumis" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="prixNonSoumis" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+    <Property Name="compteProduit" Type="Decimal" Precision="7" Scale="0" Nullable="false" />
+    <NavigationProperty Name="ExamenParticulier" Relationship="Self.REF_Exame_Exame_FK" FromRole="Examen" ToRole="ExamenParticulier" />
+    <NavigationProperty Name="Lan_Exa" Relationship="Self.REF_Lan_E_Exame_FK" FromRole="Examen" ToRole="Lan_Exa" />
+    <NavigationProperty Name="Ris_Exa" Relationship="Self.REF_Ris_E_Exame_FK" FromRole="Examen" ToRole="Ris_Exa" />
+  </EntityType>
+  <EntityType Name="ExamenParticulier">
+    <Key>
+      <PropertyRef Name="idExamenParticulier" />
+    </Key>
+    <Property Name="idExamenParticulier" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idExamen" Type="Int32" Nullable="false" />
+    <Property Name="idEmploi" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Emploi" Relationship="Self.REF_Exame_Emplo_FK" FromRole="ExamenParticulier" ToRole="Emploi" />
+    <NavigationProperty Name="Examen" Relationship="Self.REF_Exame_Exame_FK" FromRole="ExamenParticulier" ToRole="Examen" />
+  </EntityType>
+  <EntityType Name="Lan_Exa">
+    <Key>
+      <PropertyRef Name="idLangueExamen" />
+    </Key>
+    <Property Name="idLangueExamen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="texte" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idLangue" Type="Int32" Nullable="false" />
+    <Property Name="idExamen" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Examen" Relationship="Self.REF_Lan_E_Exame_FK" FromRole="Lan_Exa" ToRole="Examen" />
+    <NavigationProperty Name="Langue" Relationship="Self.REF_Lan_E_Langu_FK" FromRole="Lan_Exa" ToRole="Langue" />
+  </EntityType>
+  <EntityType Name="Lan_Prof">
+    <Key>
+      <PropertyRef Name="idLangueProf" />
+    </Key>
+    <Property Name="idLangueProf" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="texte" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idProfession" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idLangue" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Langue" Relationship="Self.REF_Lan_P_Langu_FK" FromRole="Lan_Prof" ToRole="Langue" />
+    <NavigationProperty Name="Profession" Relationship="Self.REF_Lan_P_Profe_FK" FromRole="Lan_Prof" ToRole="Profession" />
+  </EntityType>
+  <EntityType Name="Lan_Risque">
+    <Key>
+      <PropertyRef Name="idLangueRisque" />
+    </Key>
+    <Property Name="idLangueRisque" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="texte" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idRisque" Type="Int32" Nullable="false" />
+    <Property Name="idLangue" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Langue" Relationship="Self.REF_Lan_R_Langu_FK" FromRole="Lan_Risque" ToRole="Langue" />
+    <NavigationProperty Name="Risque" Relationship="Self.REF_Lan_R_Risqu_FK" FromRole="Lan_Risque" ToRole="Risque" />
+  </EntityType>
+  <EntityType Name="Langue">
+    <Key>
+      <PropertyRef Name="idLangue" />
+    </Key>
+    <Property Name="idLangue" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelle" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Lan_Exa" Relationship="Self.REF_Lan_E_Langu_FK" FromRole="Langue" ToRole="Lan_Exa" />
+    <NavigationProperty Name="Lan_Prof" Relationship="Self.REF_Lan_P_Langu_FK" FromRole="Langue" ToRole="Lan_Prof" />
+    <NavigationProperty Name="Lan_Risque" Relationship="Self.REF_Lan_R_Langu_FK" FromRole="Langue" ToRole="Lan_Risque" />
+  </EntityType>
+  <EntityType Name="Profession">
+    <Key>
+      <PropertyRef Name="idProfession" />
+    </Key>
+    <Property Name="idProfession" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Emploi" Relationship="Self.REF_Emplo_Profe_FK" FromRole="Profession" ToRole="Emploi" />
+    <NavigationProperty Name="Lan_Prof" Relationship="Self.REF_Lan_P_Profe_FK" FromRole="Profession" ToRole="Lan_Prof" />
+  </EntityType>
+  <EntityType Name="Ris_Exa">
+    <Key>
+      <PropertyRef Name="idRisqueExamen" />
+    </Key>
+    <Property Name="idRisqueExamen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idRisque" Type="Int32" Nullable="false" />
+    <Property Name="idExamen" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Examen" Relationship="Self.REF_Ris_E_Exame_FK" FromRole="Ris_Exa" ToRole="Examen" />
+    <NavigationProperty Name="Risque" Relationship="Self.REF_Ris_E_Risqu_FK" FromRole="Ris_Exa" ToRole="Risque" />
+  </EntityType>
+  <EntityType Name="Risque">
+    <Key>
+      <PropertyRef Name="idRisque" />
+    </Key>
+    <Property Name="idRisque" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Lan_Risque" Relationship="Self.REF_Lan_R_Risqu_FK" FromRole="Risque" ToRole="Lan_Risque" />
+    <NavigationProperty Name="Ris_Exa" Relationship="Self.REF_Ris_E_Risqu_FK" FromRole="Risque" ToRole="Ris_Exa" />
+    <NavigationProperty Name="Risque_TravSoumis" Relationship="Self.REF_Risqu_Risqu_FK" FromRole="Risque" ToRole="Risque_TravSoumis" />
+  </EntityType>
+  <EntityType Name="Risque_TravSoumis">
+    <Key>
+      <PropertyRef Name="idExamenSoumis" />
+    </Key>
+    <Property Name="idExamenSoumis" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idRisque" Type="Int32" Nullable="false" />
+    <Property Name="idEmploi" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Emploi" Relationship="Self.REF_Risqu_Emplo_FK" FromRole="Risque_TravSoumis" ToRole="Emploi" />
+    <NavigationProperty Name="Risque" Relationship="Self.REF_Risqu_Risqu_FK" FromRole="Risque_TravSoumis" ToRole="Risque" />
+  </EntityType>
+  <EntityType Name="Travailleur">
+    <Key>
+      <PropertyRef Name="idTravailleur" />
+    </Key>
+    <Property Name="idTravailleur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adr_rue" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adr_numero" Type="Decimal" Precision="3" Scale="0" Nullable="false" />
+    <Property Name="adr_localite" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adr_codePostal" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+    <Property Name="numDossier" Type="Decimal" Precision="6" Scale="0" />
+    <NavigationProperty Name="Emploi" Relationship="Self.REF_Emplo_Trava_FK" FromRole="Travailleur" ToRole="Emploi" />
+  </EntityType>
+  <Association Name="REF_Emplo_Entre_FK">
+    <End Role="Entreprise" Type="Self.Entreprise" Multiplicity="1" />
+    <End Role="Emploi" Type="Self.Emploi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entreprise">
+        <PropertyRef Name="idEntreprise" />
+      </Principal>
+      <Dependent Role="Emploi">
+        <PropertyRef Name="idEntreprise" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Emplo_Profe_FK">
+    <End Role="Profession" Type="Self.Profession" Multiplicity="1" />
+    <End Role="Emploi" Type="Self.Emploi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profession">
+        <PropertyRef Name="idProfession" />
+      </Principal>
+      <Dependent Role="Emploi">
+        <PropertyRef Name="idProfession" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Emplo_Trava_FK">
+    <End Role="Travailleur" Type="Self.Travailleur" Multiplicity="1" />
+    <End Role="Emploi" Type="Self.Emploi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Travailleur">
+        <PropertyRef Name="idTravailleur" />
+      </Principal>
+      <Dependent Role="Emploi">
+        <PropertyRef Name="idTravailleur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Exame_Emplo_FK">
+    <End Role="Emploi" Type="Self.Emploi" Multiplicity="1" />
+    <End Role="ExamenParticulier" Type="Self.ExamenParticulier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emploi">
+        <PropertyRef Name="idEmploi" />
+      </Principal>
+      <Dependent Role="ExamenParticulier">
+        <PropertyRef Name="idEmploi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Risqu_Emplo_FK">
+    <End Role="Emploi" Type="Self.Emploi" Multiplicity="1" />
+    <End Role="Risque_TravSoumis" Type="Self.Risque_TravSoumis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emploi">
+        <PropertyRef Name="idEmploi" />
+      </Principal>
+      <Dependent Role="Risque_TravSoumis">
+        <PropertyRef Name="idEmploi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Exame_Exame_FK">
+    <End Role="Examen" Type="Self.Examen" Multiplicity="1" />
+    <End Role="ExamenParticulier" Type="Self.ExamenParticulier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Examen">
+        <PropertyRef Name="idExamen" />
+      </Principal>
+      <Dependent Role="ExamenParticulier">
+        <PropertyRef Name="idExamen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Lan_E_Exame_FK">
+    <End Role="Examen" Type="Self.Examen" Multiplicity="1" />
+    <End Role="Lan_Exa" Type="Self.Lan_Exa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Examen">
+        <PropertyRef Name="idExamen" />
+      </Principal>
+      <Dependent Role="Lan_Exa">
+        <PropertyRef Name="idExamen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Ris_E_Exame_FK">
+    <End Role="Examen" Type="Self.Examen" Multiplicity="1" />
+    <End Role="Ris_Exa" Type="Self.Ris_Exa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Examen">
+        <PropertyRef Name="idExamen" />
+      </Principal>
+      <Dependent Role="Ris_Exa">
+        <PropertyRef Name="idExamen" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Lan_E_Langu_FK">
+    <End Role="Langue" Type="Self.Langue" Multiplicity="1" />
+    <End Role="Lan_Exa" Type="Self.Lan_Exa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Langue">
+        <PropertyRef Name="idLangue" />
+      </Principal>
+      <Dependent Role="Lan_Exa">
+        <PropertyRef Name="idLangue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Lan_P_Langu_FK">
+    <End Role="Langue" Type="Self.Langue" Multiplicity="1" />
+    <End Role="Lan_Prof" Type="Self.Lan_Prof" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Langue">
+        <PropertyRef Name="idLangue" />
+      </Principal>
+      <Dependent Role="Lan_Prof">
+        <PropertyRef Name="idLangue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Lan_P_Profe_FK">
+    <End Role="Profession" Type="Self.Profession" Multiplicity="1" />
+    <End Role="Lan_Prof" Type="Self.Lan_Prof" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profession">
+        <PropertyRef Name="idProfession" />
+      </Principal>
+      <Dependent Role="Lan_Prof">
+        <PropertyRef Name="idProfession" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Lan_R_Langu_FK">
+    <End Role="Langue" Type="Self.Langue" Multiplicity="1" />
+    <End Role="Lan_Risque" Type="Self.Lan_Risque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Langue">
+        <PropertyRef Name="idLangue" />
+      </Principal>
+      <Dependent Role="Lan_Risque">
+        <PropertyRef Name="idLangue" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Lan_R_Risqu_FK">
+    <End Role="Risque" Type="Self.Risque" Multiplicity="1" />
+    <End Role="Lan_Risque" Type="Self.Lan_Risque" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Risque">
+        <PropertyRef Name="idRisque" />
+      </Principal>
+      <Dependent Role="Lan_Risque">
+        <PropertyRef Name="idRisque" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Ris_E_Risqu_FK">
+    <End Role="Risque" Type="Self.Risque" Multiplicity="1" />
+    <End Role="Ris_Exa" Type="Self.Ris_Exa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Risque">
+        <PropertyRef Name="idRisque" />
+      </Principal>
+      <Dependent Role="Ris_Exa">
+        <PropertyRef Name="idRisque" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="REF_Risqu_Risqu_FK">
+    <End Role="Risque" Type="Self.Risque" Multiplicity="1" />
+    <End Role="Risque_TravSoumis" Type="Self.Risque_TravSoumis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Risque">
+        <PropertyRef Name="idRisque" />
+      </Principal>
+      <Dependent Role="Risque_TravSoumis">
+        <PropertyRef Name="idRisque" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MeditEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Emploi" EntityType="Self.Emploi" />
+    <EntitySet Name="Entreprise" EntityType="Self.Entreprise" />
+    <EntitySet Name="Examen" EntityType="Self.Examen" />
+    <EntitySet Name="ExamenParticulier" EntityType="Self.ExamenParticulier" />
+    <EntitySet Name="Lan_Exa" EntityType="Self.Lan_Exa" />
+    <EntitySet Name="Lan_Prof" EntityType="Self.Lan_Prof" />
+    <EntitySet Name="Lan_Risque" EntityType="Self.Lan_Risque" />
+    <EntitySet Name="Langue" EntityType="Self.Langue" />
+    <EntitySet Name="Profession" EntityType="Self.Profession" />
+    <EntitySet Name="Ris_Exa" EntityType="Self.Ris_Exa" />
+    <EntitySet Name="Risque" EntityType="Self.Risque" />
+    <EntitySet Name="Risque_TravSoumis" EntityType="Self.Risque_TravSoumis" />
+    <EntitySet Name="Travailleur" EntityType="Self.Travailleur" />
+    <AssociationSet Name="REF_Emplo_Entre_FK" Association="Self.REF_Emplo_Entre_FK">
+      <End Role="Entreprise" EntitySet="Entreprise" />
+      <End Role="Emploi" EntitySet="Emploi" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Emplo_Profe_FK" Association="Self.REF_Emplo_Profe_FK">
+      <End Role="Profession" EntitySet="Profession" />
+      <End Role="Emploi" EntitySet="Emploi" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Emplo_Trava_FK" Association="Self.REF_Emplo_Trava_FK">
+      <End Role="Travailleur" EntitySet="Travailleur" />
+      <End Role="Emploi" EntitySet="Emploi" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Exame_Emplo_FK" Association="Self.REF_Exame_Emplo_FK">
+      <End Role="Emploi" EntitySet="Emploi" />
+      <End Role="ExamenParticulier" EntitySet="ExamenParticulier" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Risqu_Emplo_FK" Association="Self.REF_Risqu_Emplo_FK">
+      <End Role="Emploi" EntitySet="Emploi" />
+      <End Role="Risque_TravSoumis" EntitySet="Risque_TravSoumis" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Exame_Exame_FK" Association="Self.REF_Exame_Exame_FK">
+      <End Role="Examen" EntitySet="Examen" />
+      <End Role="ExamenParticulier" EntitySet="ExamenParticulier" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Lan_E_Exame_FK" Association="Self.REF_Lan_E_Exame_FK">
+      <End Role="Examen" EntitySet="Examen" />
+      <End Role="Lan_Exa" EntitySet="Lan_Exa" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Ris_E_Exame_FK" Association="Self.REF_Ris_E_Exame_FK">
+      <End Role="Examen" EntitySet="Examen" />
+      <End Role="Ris_Exa" EntitySet="Ris_Exa" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Lan_E_Langu_FK" Association="Self.REF_Lan_E_Langu_FK">
+      <End Role="Langue" EntitySet="Langue" />
+      <End Role="Lan_Exa" EntitySet="Lan_Exa" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Lan_P_Langu_FK" Association="Self.REF_Lan_P_Langu_FK">
+      <End Role="Langue" EntitySet="Langue" />
+      <End Role="Lan_Prof" EntitySet="Lan_Prof" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Lan_P_Profe_FK" Association="Self.REF_Lan_P_Profe_FK">
+      <End Role="Profession" EntitySet="Profession" />
+      <End Role="Lan_Prof" EntitySet="Lan_Prof" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Lan_R_Langu_FK" Association="Self.REF_Lan_R_Langu_FK">
+      <End Role="Langue" EntitySet="Langue" />
+      <End Role="Lan_Risque" EntitySet="Lan_Risque" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Lan_R_Risqu_FK" Association="Self.REF_Lan_R_Risqu_FK">
+      <End Role="Risque" EntitySet="Risque" />
+      <End Role="Lan_Risque" EntitySet="Lan_Risque" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Ris_E_Risqu_FK" Association="Self.REF_Ris_E_Risqu_FK">
+      <End Role="Risque" EntitySet="Risque" />
+      <End Role="Ris_Exa" EntitySet="Ris_Exa" />
+    </AssociationSet>
+    <AssociationSet Name="REF_Risqu_Risqu_FK" Association="Self.REF_Risqu_Risqu_FK">
+      <End Role="Risque" EntitySet="Risque" />
+      <End Role="Risque_TravSoumis" EntitySet="Risque_TravSoumis" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

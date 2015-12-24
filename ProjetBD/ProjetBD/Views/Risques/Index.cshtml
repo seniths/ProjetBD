@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ProjetBD.Risque>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idRisque)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Lan_Risque.First(lr => lr.idLangue == 1 && lr.idRisque == item.idRisque).texte)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idRisque }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idRisque }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idRisque })
+        </td>
+    </tr>
+}
+
+</table>

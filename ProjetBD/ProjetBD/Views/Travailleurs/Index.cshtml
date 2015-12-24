@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ProjetBD.Travailleur>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.prenom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adr_rue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adr_numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adr_localite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adr_codePostal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numDossier)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.prenom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adr_rue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adr_numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adr_localite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adr_codePostal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numDossier)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idTravailleur }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idTravailleur }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idTravailleur })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,56 @@
+﻿@model ProjetBD.Examen
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Examen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.periodicite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.periodicite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prixSoumis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prixSoumis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.prixNonSoumis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.prixNonSoumis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.compteProduit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.compteProduit)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

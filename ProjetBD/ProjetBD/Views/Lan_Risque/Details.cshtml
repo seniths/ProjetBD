@@ -1,0 +1,42 @@
+﻿@model ProjetBD.Lan_Risque
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Lan_Risque</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.texte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.texte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Langue.libelle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Langue.libelle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Risque.idRisque)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Risque.idRisque)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idLangueRisque }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,42 @@
+﻿@model ProjetBD.Lan_Prof
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Lan_Prof</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.texte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.texte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Langue.libelle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Langue.libelle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Profession.idProfession)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Profession.idProfession)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.idLangueProf }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

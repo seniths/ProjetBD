@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ProjetBD.Lan_Prof>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.texte)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Langue.libelle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Profession.idProfession)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.texte)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Langue.libelle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Profession.idProfession)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idLangueProf }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idLangueProf }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idLangueProf })
+        </td>
+    </tr>
+}
+
+</table>

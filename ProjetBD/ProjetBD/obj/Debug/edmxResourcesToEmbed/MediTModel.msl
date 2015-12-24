@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MeditModelStoreContainer" CdmEntityContainer="MeditEntities">
+    <EntitySetMapping Name="Emploi">
+      <EntityTypeMapping TypeName="MeditModel.Emploi">
+        <MappingFragment StoreEntitySet="Emploi">
+          <ScalarProperty Name="idEmploi" ColumnName="idEmploi" />
+          <ScalarProperty Name="dateEntree" ColumnName="dateEntree" />
+          <ScalarProperty Name="idTravailleur" ColumnName="idTravailleur" />
+          <ScalarProperty Name="idEntreprise" ColumnName="idEntreprise" />
+          <ScalarProperty Name="dateSortie" ColumnName="dateSortie" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="idProfession" ColumnName="idProfession" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Entreprise">
+      <EntityTypeMapping TypeName="MeditModel.Entreprise">
+        <MappingFragment StoreEntitySet="Entreprise">
+          <ScalarProperty Name="idEntreprise" ColumnName="idEntreprise" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="adr_rue" ColumnName="adr_rue" />
+          <ScalarProperty Name="adr_numero" ColumnName="adr_numero" />
+          <ScalarProperty Name="adr_localite" ColumnName="adr_localite" />
+          <ScalarProperty Name="adr_codePostal" ColumnName="adr_codePostal" />
+          <ScalarProperty Name="numTel" ColumnName="numTel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Examen">
+      <EntityTypeMapping TypeName="MeditModel.Examen">
+        <MappingFragment StoreEntitySet="Examen">
+          <ScalarProperty Name="idExamen" ColumnName="idExamen" />
+          <ScalarProperty Name="periodicite" ColumnName="periodicite" />
+          <ScalarProperty Name="prixSoumis" ColumnName="prixSoumis" />
+          <ScalarProperty Name="prixNonSoumis" ColumnName="prixNonSoumis" />
+          <ScalarProperty Name="compteProduit" ColumnName="compteProduit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExamenParticulier">
+      <EntityTypeMapping TypeName="MeditModel.ExamenParticulier">
+        <MappingFragment StoreEntitySet="ExamenParticulier">
+          <ScalarProperty Name="idExamenParticulier" ColumnName="idExamenParticulier" />
+          <ScalarProperty Name="idExamen" ColumnName="idExamen" />
+          <ScalarProperty Name="idEmploi" ColumnName="idEmploi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lan_Exa">
+      <EntityTypeMapping TypeName="MeditModel.Lan_Exa">
+        <MappingFragment StoreEntitySet="Lan_Exa">
+          <ScalarProperty Name="idLangueExamen" ColumnName="idLangueExamen" />
+          <ScalarProperty Name="texte" ColumnName="texte" />
+          <ScalarProperty Name="idLangue" ColumnName="idLangue" />
+          <ScalarProperty Name="idExamen" ColumnName="idExamen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lan_Prof">
+      <EntityTypeMapping TypeName="MeditModel.Lan_Prof">
+        <MappingFragment StoreEntitySet="Lan_Prof">
+          <ScalarProperty Name="idLangueProf" ColumnName="idLangueProf" />
+          <ScalarProperty Name="texte" ColumnName="texte" />
+          <ScalarProperty Name="idProfession" ColumnName="idProfession" />
+          <ScalarProperty Name="idLangue" ColumnName="idLangue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lan_Risque">
+      <EntityTypeMapping TypeName="MeditModel.Lan_Risque">
+        <MappingFragment StoreEntitySet="Lan_Risque">
+          <ScalarProperty Name="idLangueRisque" ColumnName="idLangueRisque" />
+          <ScalarProperty Name="texte" ColumnName="texte" />
+          <ScalarProperty Name="idRisque" ColumnName="idRisque" />
+          <ScalarProperty Name="idLangue" ColumnName="idLangue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Langue">
+      <EntityTypeMapping TypeName="MeditModel.Langue">
+        <MappingFragment StoreEntitySet="Langue">
+          <ScalarProperty Name="idLangue" ColumnName="idLangue" />
+          <ScalarProperty Name="libelle" ColumnName="libelle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profession">
+      <EntityTypeMapping TypeName="MeditModel.Profession">
+        <MappingFragment StoreEntitySet="Profession">
+          <ScalarProperty Name="idProfession" ColumnName="idProfession" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ris_Exa">
+      <EntityTypeMapping TypeName="MeditModel.Ris_Exa">
+        <MappingFragment StoreEntitySet="Ris_Exa">
+          <ScalarProperty Name="idRisqueExamen" ColumnName="idRisqueExamen" />
+          <ScalarProperty Name="idRisque" ColumnName="idRisque" />
+          <ScalarProperty Name="idExamen" ColumnName="idExamen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Risque">
+      <EntityTypeMapping TypeName="MeditModel.Risque">
+        <MappingFragment StoreEntitySet="Risque">
+          <ScalarProperty Name="idRisque" ColumnName="idRisque" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Risque_TravSoumis">
+      <EntityTypeMapping TypeName="MeditModel.Risque_TravSoumis">
+        <MappingFragment StoreEntitySet="Risque_TravSoumis">
+          <ScalarProperty Name="idExamenSoumis" ColumnName="idExamenSoumis" />
+          <ScalarProperty Name="idRisque" ColumnName="idRisque" />
+          <ScalarProperty Name="idEmploi" ColumnName="idEmploi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Travailleur">
+      <EntityTypeMapping TypeName="MeditModel.Travailleur">
+        <MappingFragment StoreEntitySet="Travailleur">
+          <ScalarProperty Name="idTravailleur" ColumnName="idTravailleur" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="adr_rue" ColumnName="adr_rue" />
+          <ScalarProperty Name="adr_numero" ColumnName="adr_numero" />
+          <ScalarProperty Name="adr_localite" ColumnName="adr_localite" />
+          <ScalarProperty Name="adr_codePostal" ColumnName="adr_codePostal" />
+          <ScalarProperty Name="numDossier" ColumnName="numDossier" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
