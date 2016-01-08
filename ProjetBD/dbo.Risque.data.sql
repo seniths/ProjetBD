@@ -1,0 +1,5 @@
+﻿INSERT INTO [dbo].[Risque] ([idRisque]) VALUES (1)
+INSERT INTO [dbo].[Risque] ([idRisque]) VALUES (2)
+INSERT INTO [dbo].[Risque] ([idRisque]) VALUES (3)
+INSERT INTO [dbo].[Risque] ([idRisque]) VALUES (4)
+INSERT INTO [dbo].[Risque] ([idRisque]) VALUES (5)

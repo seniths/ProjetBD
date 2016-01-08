@@ -39,8 +39,18 @@ namespace ProjetBD.Controllers
         // GET: ExamenParticuliers/Create
         public ActionResult Create()
         {
-            ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "idProfession");
-            ViewBag.idExamen = new SelectList(db.Examen, "idExamen", "idExamen");
+            //ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "idProfession");
+            //ViewBag.idExamen = new SelectList(db.Examen, "idExamen", "idExamen");
+            int idEmploi = 0;
+            if (RouteData.Values["id"] != null)
+            {
+                idEmploi = Int32.Parse(RouteData.Values["id"].ToString());
+                ViewBag.idEmploi = new SelectList(db.Emploi.Where(e => e.idEmploi == idEmploi), "idEmploi", "InfoEmploi");
+            }
+            else
+                ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "InfoEmploi");
+            ViewBag.idExamen = new SelectList(db.Lan_Exa, "idExamen", "texte");
+
             return View();
         }
 
@@ -53,13 +63,36 @@ namespace ProjetBD.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ExamenParticulier.Add(examenParticulier);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (this.User.IsInRole("Admin"))
+                {
+                    db.Database.BeginTransaction();
+                    try
+                    {
+                        db.ExamenParticulier.Add(examenParticulier);
+                        db.SaveChanges();
+                        db.Database.CurrentTransaction.Commit();
+                        return RedirectToAction("Index", "Emplois");
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError("", "Impossible d'éxécuter cette requête!");
+                        db.Database.CurrentTransaction.Rollback();
+                    } 
+                }
+                
             }
 
-            ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "idProfession", examenParticulier.idEmploi);
-            ViewBag.idExamen = new SelectList(db.Examen, "idExamen", "idExamen", examenParticulier.idExamen);
+            //ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "idProfession", examenParticulier.idEmploi);
+            //ViewBag.idExamen = new SelectList(db.Examen, "idExamen", "idExamen", examenParticulier.idExamen);
+            int idEmploi = 0;
+            if (RouteData.Values["id"] != null)
+            {
+                idEmploi = Int32.Parse(RouteData.Values["id"].ToString());
+                ViewBag.idEmploi = new SelectList(db.Emploi.Where(e => e.idEmploi == idEmploi), "idEmploi", "InfoEmploi");
+            }
+            else
+                ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "InfoEmploi");
+            ViewBag.idExamen = new SelectList(db.Lan_Exa, "idExamen", "texte");
             return View(examenParticulier);
         }
 

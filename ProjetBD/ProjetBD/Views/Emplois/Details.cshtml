@@ -11,7 +11,8 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.dateEntree)
+            Date d'entrée
+            @*@Html.DisplayNameFor(model => model.dateEntree)*@
         </dt>
 
         <dd>
@@ -19,7 +20,8 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.dateSortie)
+            Date de sortie
+            @*@Html.DisplayNameFor(model => model.dateSortie)*@
         </dt>
 
         <dd>
@@ -27,40 +29,59 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.type)
+            Soumis
+            @*@Html.DisplayNameFor(model => model.type)*@
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.type)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Entreprise.nom)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Entreprise.nom)
-        </dd>
+        </dd>*@
 
         <dt>
-            @Html.DisplayNameFor(model => model.Profession.idProfession)
+            @*@Html.DisplayNameFor(model => model.Profession.idProfession)*@
+            Profession
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Profession.idProfession)
+            @Html.DisplayFor(model => model.Profession.Lan_Prof.First(p => p.idProfession.Equals(model.idProfession) && p.idLangue == 1).texte)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Travailleur.nom)
+            Travailleur
+            @*@Html.DisplayNameFor(model => model.Travailleur.nom)*@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Travailleur.nom)
+            @Html.DisplayFor(model => model.InfoEmploi)
+        </dd>
+
+        <dt>
+            Risques 
+        </dt>
+
+        <dd>
+            @Html.ListBoxFor(model => model.LabelsRisques, null, new { @style = "width: 240px; height: 140px;" })
+        </dd>
+
+        <dt>
+            Examens particuliers
+        </dt>
+
+        <dd>
+            @Html.ListBoxFor(model => model.LabelsExamens, null, new { @style = "width: 240px; height: 140px;"})
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.idEmploi }) |
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.idEmploi }) |*@
+    @Html.ActionLink("Retour à la liste", "Index")
 </p>

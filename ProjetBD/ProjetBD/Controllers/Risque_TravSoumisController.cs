@@ -39,8 +39,18 @@ namespace ProjetBD.Controllers
         // GET: Risque_TravSoumis/Create
         public ActionResult Create()
         {
-            ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "idProfession");
-            ViewBag.idRisque = new SelectList(db.Risque, "idRisque", "idRisque");
+            //ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "idProfession");
+            //ViewBag.idRisque = new SelectList(db.Risque, "idRisque", "idRisque");
+            int idEmploi = 0;
+            if (RouteData.Values["id"] != null)
+            {
+                idEmploi = Int32.Parse(RouteData.Values["id"].ToString());
+                ViewBag.idEmploi = new SelectList(db.Emploi.Where(e => e.idEmploi == idEmploi), "idEmploi", "InfoEmploi");
+            }
+            else
+                ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "InfoEmploi");
+            ViewBag.idRisque = new SelectList(db.Lan_Risque, "idRisque", "texte");
+            //ViewBag.idRisque = new SelectList(db.Lan_Risque.Where(l => l.idLangue == 1), "texte");
             return View();
         }
 
@@ -53,13 +63,61 @@ namespace ProjetBD.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Risque_TravSoumis.Add(risque_TravSoumis);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (this.User.IsInRole("Admin"))
+                {
+                    db.Database.BeginTransaction();
+                    try
+                    {
+                        db.Risque_TravSoumis.Add(risque_TravSoumis);
+
+                        List<Ris_Exa> examens = db.Ris_Exa.Where(re => re.idRisque == risque_TravSoumis.idRisque).ToList();
+
+                        ExamenParticulier examen;
+                        foreach (var item in examens)
+                        {
+                            ExamenParticulier examenDejaPresent;
+                            try
+                            {
+                                examenDejaPresent = db.ExamenParticulier.First(e => e.idEmploi == risque_TravSoumis.idEmploi && e.idExamen == item.idExamen);
+                            }
+                            catch (Exception)
+                            {
+                                examenDejaPresent = null;
+                            }
+                            if (examenDejaPresent == null)
+                            {
+                                examen = new ExamenParticulier()
+                                {
+                                    idEmploi = risque_TravSoumis.idEmploi,
+                                    idExamen = item.idExamen
+                                };
+                                db.ExamenParticulier.Add(examen);
+                            }
+                        }
+
+                        db.SaveChanges();
+                        db.Database.CurrentTransaction.Commit();
+                        return RedirectToAction("Index", "Emplois");
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError("", "Impossible d'éxécuter cette requête!");
+                        db.Database.CurrentTransaction.Rollback();
+                    }
+                }
             }
 
-            ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "idProfession", risque_TravSoumis.idEmploi);
-            ViewBag.idRisque = new SelectList(db.Risque, "idRisque", "idRisque", risque_TravSoumis.idRisque);
+            //ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "idProfession", risque_TravSoumis.idEmploi);
+            //ViewBag.idRisque = new SelectList(db.Risque, "idRisque", "idRisque", risque_TravSoumis.idRisque);
+            int idEmploi = 0;
+            if (RouteData.Values["id"] != null)
+            {
+                idEmploi = Int32.Parse(RouteData.Values["id"].ToString());
+                ViewBag.idEmploi = new SelectList(db.Emploi.Where(e => e.idEmploi == idEmploi), "idEmploi", "InfoEmploi");
+            }
+            else
+                ViewBag.idEmploi = new SelectList(db.Emploi, "idEmploi", "InfoEmploi");
+            ViewBag.idRisque = new SelectList(db.Lan_Risque, "idRisque", "texte");
             return View(risque_TravSoumis);
         }
 

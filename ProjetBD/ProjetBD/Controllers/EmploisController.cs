@@ -33,6 +33,23 @@ namespace ProjetBD.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<Risque_TravSoumis> risquesIds = db.Risque_TravSoumis.Where(r => r.idEmploi == emploi.idEmploi).ToList();
+            List<string> txt = new List<string>();
+            foreach (var item in risquesIds)
+            {
+                txt.Add(db.Lan_Risque.First(l => l.idRisque == item.idRisque && l.idLangue == 1).texte);
+            }
+            emploi.LabelsRisques = new SelectList(txt);
+
+            List<ExamenParticulier> exaIds = db.ExamenParticulier.Where(e => e.idEmploi == emploi.idEmploi).ToList();
+            txt = new List<string>();
+            foreach (var item in exaIds)
+            {
+                txt.Add(db.Lan_Exa.First(l => l.idExamen == item.idExamen && l.idLangue == 1).texte);
+            }
+            emploi.LabelsExamens = new SelectList(txt);
+
             return View(emploi);
         }
 

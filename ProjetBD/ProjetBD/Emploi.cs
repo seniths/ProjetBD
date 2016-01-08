@@ -11,7 +11,10 @@ namespace ProjetBD
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Web.Mvc;
+
     public partial class Emploi
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,15 +23,25 @@ namespace ProjetBD
             this.ExamenParticulier = new HashSet<ExamenParticulier>();
             this.Risque_TravSoumis = new HashSet<Risque_TravSoumis>();
         }
-    
+
         public int idEmploi { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime dateEntree { get; set; }
         public int idTravailleur { get; set; }
         public int idEntreprise { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> dateSortie { get; set; }
         public bool type { get; set; }
         public string idProfession { get; set; }
-    
+
+        public string InfoEmploi
+        {
+            get { return Travailleur.nom + " " + Travailleur.prenom + ", " + Entreprise.nom + " (" + idEmploi + ")"; }
+        }
+
+        public IEnumerable<SelectListItem> LabelsRisques { get; set; }
+        public IEnumerable<SelectListItem> LabelsExamens { get; set; }
+
         public virtual Entreprise Entreprise { get; set; }
         public virtual Profession Profession { get; set; }
         public virtual Travailleur Travailleur { get; set; }

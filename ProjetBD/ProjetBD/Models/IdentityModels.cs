@@ -29,5 +29,7 @@ namespace ProjetBD.Models
         {
             return new ApplicationDbContext();
         }
+
+        //public System.Data.Entity.DbSet<ProjetBD.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
